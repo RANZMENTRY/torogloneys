@@ -9,6 +9,7 @@ class Product extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
         'sku',
         'description',
         'category_id',
@@ -29,6 +30,30 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
     
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+    
+    public function scopeInStock($query)
+    {
+        return $query->where('stock', '>', 0);
+    }
+    
+    public function scopeWithCategory($query)
+    {
+        return $query->with('category');
+    }
+    
+    public function scopeFeatured($query, $limit = 6)
+    {
+        return $query->active()
+            ->inStock()
+            ->latest()
+            ->limit($limit);
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -36,6 +61,9 @@ class Product extends Model
         static::creating(function ($model) {
             if (empty($model->sku)) {
                 $model->sku = 'SKU-' . strtoupper(Str::random(8));
+            }
+            if (empty($model->slug)) {
+                $model->slug = Str::slug($model->name);
             }
         });
     }
