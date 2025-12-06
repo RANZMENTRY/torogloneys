@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Traits\NavigationGrouping;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
@@ -18,11 +19,20 @@ use Illuminate\Support\Facades\Auth;
 
 class UserResource extends Resource
 {
+    use NavigationGrouping;
+
     protected static ?string $model = User::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
     protected static ?string $navigationLabel = 'Users';
+    
+    public static function getNavigationGroup(): ?string
+    {
+        return 'User Management';
+    }
+    
+    protected static ?int $navigationSort = 100;
 
     protected static ?string $modelLabel = 'User';
 

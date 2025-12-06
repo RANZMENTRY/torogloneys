@@ -7,6 +7,7 @@ use App\Filament\Resources\Categories\Pages\EditCategory;
 use App\Filament\Resources\Categories\Pages\ListCategories;
 use App\Filament\Resources\Categories\Schemas\CategoryForm;
 use App\Filament\Resources\Categories\Tables\CategoriesTable;
+use App\Filament\Resources\Traits\NavigationGrouping;
 use App\Models\Category;
 use App\Models\User;
 use BackedEnum;
@@ -24,6 +25,13 @@ class CategoryResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $navigationLabel = 'Categories';
+    
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Master Data';
+    }
+    
+    protected static ?int $navigationSort = 0;
 
     protected static ?string $modelLabel = 'Category';
 

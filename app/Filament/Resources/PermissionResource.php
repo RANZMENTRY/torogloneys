@@ -20,8 +20,13 @@ class PermissionResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLockOpen;
 
     protected static ?string $navigationLabel = 'Permissions';
-
-    protected static ?int $navigationSort = 1;
+    
+    public static function getNavigationGroup(): ?string
+    {
+        return 'User Management';
+    }
+    
+    protected static ?int $navigationSort = 102;
 
     public static function canAccess(): bool
     {

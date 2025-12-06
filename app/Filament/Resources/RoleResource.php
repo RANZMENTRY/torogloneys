@@ -24,8 +24,13 @@ class RoleResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
 
     protected static ?string $navigationLabel = 'Roles';
-
-    protected static ?int $navigationSort = 2;
+    
+    public static function getNavigationGroup(): ?string
+    {
+        return 'User Management';
+    }
+    
+    protected static ?int $navigationSort = 101;
 
     public static function canAccess(): bool
     {
